@@ -15,17 +15,19 @@ export class PetTypesPage {
 
   }
 
+  /**
+   * This method finds the table row by the specified type name and clicks its Edit button.
+   * @param typeName - valid pet type from the table
+   */
   async clickEditType(typeName: string) {
     const tableRowByType = this.page.getByRole('row', { name: typeName });
     await tableRowByType.getByRole('button', { name: 'Edit' }).click();
   }
 
-  async getAllPetTypes() {
-    const types = this.table.getByRole('textbox').all();
-    console.log(await types);
-
-  }
-
+  /**
+   * This method gets all pet type names from the textboxes on the page and returns them as an array of strings.
+   * @returns An array containing all pet type names.
+   */
   async getAllPetTypesNames() {
     await expect(this.page.getByRole('textbox').first()).toBeVisible();
 
@@ -36,8 +38,6 @@ export class PetTypesPage {
     }
     return values;
   }
-
-
 
 }
 

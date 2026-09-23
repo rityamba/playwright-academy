@@ -9,28 +9,36 @@ test.beforeEach(async ({ page }) => {
 
 
 test('Update pet type', async ({ page }) => {
-  const navigationPage = new NavigationPage(page);
+  const navigateTo = new NavigationPage(page);
   const petTypesPage = new PetTypesPage(page);
   const editPetTypesPage = new EditPetTypesPage(page);
+  let petTypes;
 
-  await navigationPage.navigateToPetTypes();
-  await expect(petTypesPage.title).toBeVisible();
 
-  await petTypesPage.clickEditType('cat');
+  await test.step('Go to Pet Types page', async () => {
+    await navigateTo.petTypes();
+    await expect(petTypesPage.title).toBeVisible();
+  })
 
-  await expect(editPetTypesPage.title).toBeVisible();
+  
 
-  await editPetTypesPage.enterTypeName('rabbit');
-  await editPetTypesPage.clickSave();
+  await test.step('Change the pet type name from "cat" to "rabbit"', async () => {
+    await petTypesPage.clickEditType('cat');
+    await expect(editPetTypesPage.title).toBeVisible();
+    await editPetTypesPage.enterTypeName('rabbit');
+    await editPetTypesPage.clickUpdate();
 
-  let petTypes = await petTypesPage.getAllPetTypesNames();
-  await expect(petTypes[0]).toBe('rabbit');
+    petTypes = await petTypesPage.getAllPetTypesNames();
+    await expect(petTypes[0]).toBe('rabbit');
+  })
 
-  await petTypesPage.clickEditType('rabbit');
-  await editPetTypesPage.enterTypeName('cat');
-  await editPetTypesPage.clickSave();
+  await test.step('Change the pet type name from "rabbit" back to "cat"', async () => {
+    await petTypesPage.clickEditType('rabbit');
+    await editPetTypesPage.enterTypeName('cat');
+    await editPetTypesPage.clickUpdate();
 
-  petTypes = await petTypesPage.getAllPetTypesNames();
-  await expect(petTypes[0]).toBe('cat');
+    petTypes = await petTypesPage.getAllPetTypesNames();
+    await expect(petTypes[0]).toBe('cat');
+  })
 
 });

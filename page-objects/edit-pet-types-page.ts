@@ -16,14 +16,24 @@ export class EditPetTypesPage {
     this.textboxType = page.getByRole('textbox');
   }
 
-  async clickSave() {
+  /**
+   * This method clicks Update button to save new pet type value 
+   */
+  async clickUpdate() {
     await this.updateBtn.click();
   }
 
+  /**
+   * This method clicks Cancel button to discard changes on the Edit page.
+   */
   async clickCancel() {
     await this.cancelBtn.click();
   }
 
+  /**
+   * This method enters the specified pet type name into the type name textbox.
+   * @param typeName - new type value
+   */
   async enterTypeName(typeName: string) {
     await expect(this.textboxType).not.toHaveValue('');
     await this.textboxType.fill(typeName);

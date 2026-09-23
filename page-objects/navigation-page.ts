@@ -7,7 +7,7 @@ export class NavigationPage {
     this.page = page;
   }
 
-  async navigateToPetTypes() {
+  async petTypes() {
     await this.page.getByText('PET TYPES').click();
   }
 
