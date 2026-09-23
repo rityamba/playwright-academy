@@ -10,7 +10,7 @@ export class NavigationPage {
 
   @step
   async petTypes() {
-    await this.page.getByText('PET TYPggES').click();
+    await this.page.getByText('PET TYPES').click();
   }
 
 }

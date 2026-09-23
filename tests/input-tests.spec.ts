@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { NavigationPage } from '../page-objects/navigation-page';
-import { PetTypesPage } from '../page-objects/pet-types-page';
-import { EditPetTypesPage } from '../page-objects/edit-pet-types-page';
+import { PageManager } from '../page-objects/page-manager';
 
 
 test.beforeEach(async ({ page }) => {
@@ -10,32 +8,30 @@ test.beforeEach(async ({ page }) => {
 
 
 test('Update pet type', async ({ page }) => {
-  const navigateTo = new NavigationPage(page);
-  const petTypesPage = new PetTypesPage(page);
-  const editPetTypesPage = new EditPetTypesPage(page);
+  const pom = new PageManager(page);
   let petTypes;
 
   await test.step('Go to Pet Types page', async () => {
-    await navigateTo.petTypes();
-    await expect(petTypesPage.title).toBeVisible();
+    await pom.navigateTo.petTypes();
+    await expect(pom.petTypesPage.title).toBeVisible();
   })
 
   await test.step('Change the pet type name from "cat" to "rabbit"', async () => {
-    await petTypesPage.clickEditType('cat');
-    await expect(editPetTypesPage.title).toBeVisible();
-    await editPetTypesPage.enterTypeName('rabbit');
-    await editPetTypesPage.clickUpdate();
+    await pom.petTypesPage.clickEditType('cat');
+    await expect(pom.editPetTypesPage.title).toBeVisible();
+    await pom.editPetTypesPage.enterTypeName('rabbit');
+    await pom.editPetTypesPage.clickUpdate();
 
-    petTypes = await petTypesPage.getAllPetTypesNames();
+    petTypes = await pom.petTypesPage.getAllPetTypesNames();
     await expect(petTypes[0]).toBe('rabbit');
   })
 
   await test.step('Change the pet type name from "rabbit" back to "cat"', async () => {
-    await petTypesPage.clickEditType('rabbit');
-    await editPetTypesPage.enterTypeName('cat');
-    await editPetTypesPage.clickUpdate();
+    await pom.petTypesPage.clickEditType('rabbit');
+    await pom.editPetTypesPage.enterTypeName('cat');
+    await pom.editPetTypesPage.clickUpdate();
 
-    petTypes = await petTypesPage.getAllPetTypesNames();
+    petTypes = await pom.petTypesPage.getAllPetTypesNames();
     await expect(petTypes[0]).toBe('cat');
   })
 
