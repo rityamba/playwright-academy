@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
+import { step } from '../helpers/test-step-decorator';
 
 export class EditPetTypesPage {
   readonly page: Page;
@@ -19,6 +20,7 @@ export class EditPetTypesPage {
   /**
    * This method clicks Update button to save new pet type value 
    */
+  @step
   async clickUpdate() {
     await this.updateBtn.click();
   }
@@ -26,6 +28,7 @@ export class EditPetTypesPage {
   /**
    * This method clicks Cancel button to discard changes on the Edit page.
    */
+  @step
   async clickCancel() {
     await this.cancelBtn.click();
   }
@@ -34,6 +37,7 @@ export class EditPetTypesPage {
    * This method enters the specified pet type name into the type name textbox.
    * @param typeName - new type value
    */
+  @step
   async enterTypeName(typeName: string) {
     await expect(this.textboxType).not.toHaveValue('');
     await this.textboxType.fill(typeName);

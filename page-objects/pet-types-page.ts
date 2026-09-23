@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { step } from '../helpers/test-step-decorator';
 
 export class PetTypesPage {
   readonly page: Page;
@@ -19,6 +20,7 @@ export class PetTypesPage {
    * This method finds the table row by the specified type name and clicks its Edit button.
    * @param typeName - valid pet type from the table
    */
+  @step
   async clickEditType(typeName: string) {
     const tableRowByType = this.page.getByRole('row', { name: typeName });
     await tableRowByType.getByRole('button', { name: 'Edit' }).click();
@@ -28,6 +30,7 @@ export class PetTypesPage {
    * This method gets all pet type names from the textboxes on the page and returns them as an array of strings.
    * @returns An array containing all pet type names.
    */
+  @step
   async getAllPetTypesNames() {
     await expect(this.page.getByRole('textbox').first()).toBeVisible();
 

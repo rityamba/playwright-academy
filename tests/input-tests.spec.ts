@@ -3,6 +3,7 @@ import { NavigationPage } from '../page-objects/navigation-page';
 import { PetTypesPage } from '../page-objects/pet-types-page';
 import { EditPetTypesPage } from '../page-objects/edit-pet-types-page';
 
+
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
 })
@@ -14,13 +15,10 @@ test('Update pet type', async ({ page }) => {
   const editPetTypesPage = new EditPetTypesPage(page);
   let petTypes;
 
-
   await test.step('Go to Pet Types page', async () => {
     await navigateTo.petTypes();
     await expect(petTypesPage.title).toBeVisible();
   })
-
-  
 
   await test.step('Change the pet type name from "cat" to "rabbit"', async () => {
     await petTypesPage.clickEditType('cat');

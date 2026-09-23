@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { step } from '../helpers/test-step-decorator';
 
 export class NavigationPage {
   readonly page: Page;
@@ -7,8 +8,9 @@ export class NavigationPage {
     this.page = page;
   }
 
+  @step
   async petTypes() {
-    await this.page.getByText('PET TYPES').click();
+    await this.page.getByText('PET TYPggES').click();
   }
 
 }
