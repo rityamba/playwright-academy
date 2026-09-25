@@ -23,7 +23,7 @@ test('Update pet type', async ({ page }) => {
     await pom.editPetTypesPage.clickUpdate();
 
     petTypes = await pom.petTypesPage.getAllPetTypesNames();
-    await expect(petTypes[0]).toBe('rabbit');
+    expect(petTypes[0]).toBe('rabbit');
   })
 
   await test.step('Change the pet type name from "rabbit" back to "cat"', async () => {
@@ -32,7 +32,7 @@ test('Update pet type', async ({ page }) => {
     await pom.editPetTypesPage.clickUpdate();
 
     petTypes = await pom.petTypesPage.getAllPetTypesNames();
-    await expect(petTypes[0]).toBe('cat');
+    expect(petTypes[0]).toBe('cat');
   })
 
 });
